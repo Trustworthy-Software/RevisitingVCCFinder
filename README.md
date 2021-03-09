@@ -59,11 +59,11 @@ The scripts provided here perform the experiments and produce the figures found 
 
 The following table lists which file corresponds to which figure.
 
-|  Ref |  -----------------   |    Location | 
-| --------- | -------- |:---------|
-| Figure 2 |   | replicate/4\_Results/2\_Plots/Figure2\.pdf |
-| Figure 3 |   | replicate/4\_Results/2\_Plots/Figure3.pdf |
-| Figure 4 |   | replicate/4\_Results/2\_Plots/Figure4.pdf |
-| Figure 5 |   | new\_ft/4\_Results/2\_Plots/New\_Features\_No\_Co-Training.pdf |
-| Figure 7 |   | exp\_new\_features/recall\_precision.pdf |
-| Figure 8 |   | replicate/4\_Results/2\_Plots/2\_ct\_input/recall\_precision.pdf |
+|  Ref |  Location (relative to `$DOCKER_CONTAINER_BASE/home/vcc/`) | 
+| --------- |:---------|
+| Figure 2 | replicate/4\_Results/2\_Plots/Figure2\.pdf |
+| Figure 3 | replicate/4\_Results/2\_Plots/Figure3.pdf |
+| Figure 4 | replicate/4\_Results/2\_Plots/Figure4.pdf |
+| Figure 5 | new\_ft/4\_Results/2\_Plots/New\_Features\_No\_Co-Training.pdf |
+| Figure 7 | exp\_new\_features/recall\_precision.pdf |
+| Figure 8 | replicate/4\_Results/2\_Plots/2\_ct\_input/recall\_precision.pdf |
