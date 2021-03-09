@@ -1,0 +1,139 @@
+########################################################################
+#			Documentation					 #
+########################################################################
+This document explains the procedure for one to be able to replicate 
+the experiments we describe in our Replication and Experimental Exploration
+of VCCFinder.
+
+#############	  Table of Figures	##############
+Figure 2	#replicate/4_Results/2_Plots/Figure2.pdf	
+Figure 3	#replicate/4_Results/2_Plots/Figure3.pdf	
+Figure 4	#replicate/4_Results/2_Plots/Figure4.pdf
+Figure 5	#new_ft/4_Results/2_Plots/New_Features_No_Co-Training.pdf
+Figure 7	#exp_new_features/recall_precision.pdf
+Figure 8	#replicate/4_Results/2_Plots/2_ct_input/recall_precision.pdf
+#####################################################
+
+4 Experiments take place playing on 2 particularities
+(which features are used and with or without Co-Training):
+		1.Replication of VCCFinder
+		2.New Features Co-Training-less
+		3.VCC Features with Co-Training
+		4.New Features with Co-Training
+
+But the order by which the experiments will be carried out is the following:
+		1, 3, 2, 4
+It enables the extraction of features from 3 for 2. And of vectors from 
+1 for 3.
+
+Instructions are listed in do_everything.sh
+######################################################################
+#		Open and import DB
+######################################################################
+The database provided is the one we were given by original authors.
+
+Functionnal instructions are available in the Dockerfile
+
+######################################################################
+##			Replication of VCCFinder
+######################################################################
+
+These experiments hold in the replicate folder.
+
+Composed of 4 folders and 2 Launch scripts.
+1_Data: 			Contains the id of the commits belonging to each group
+2_Tools: 			Contains all the code to open the database,normalize,
+				generate inputs, for replication and co-training inputs.
+				As well as tools for figure generation in the replication.	
+3_IntermediarySteps: 		This, at the beginning empty, folder contains all the 
+				intermediary steps of the data so the hours long extraction 
+				does not need to be done every time.
+				4 to 5 folders each:
+				1.Generation/Extraction	||2Pre-Sally	||3.one Line 	
+				||4.Post-Sally	||5.	Input
+				one_Lines: used for tracking the commit id number while using Sally
+4_Results: 			Split in data and Figures
+				Data will hold the results of prediction and actual
+				class so that figures can be later regenerated without needing to recompile everything
+				It will also contain the inputs generated for the co-training process.
+	
+Launch_Instructions.sh:		Instructions in order to reproduce the whole experiment of replication.
+				If vcc2.py has been done recently, there is no need to reproduce this costly step.
+
+Launch_ct_input_generation.sh:	Instructions in order to generate the inputs for VCCFeatures Co-Training.
+				If vcc2.py has been launched recently (either by 
+				Launch_Instructions.sh, by Launch_ct_input_generation.sh
+				or by and for itself, no need to execute it again).
+_________________________________________________________________________________________________
+Tools description:
+------------------vcc2.py
+Will extract each commit from the database according to their id and gather the data 
+for the input in 3_IntermediarySteps/1_Extraction.
+Will automatically use the same DB to initiate the input generation for co-training in 
+3_IntermediarySteps/ct_1_Generated respecting the split of features co-training requires.
+------------------run-sally-tracks_id.py
+Will take one input/ copy it to Pre-Sally/ take one commit features/ it copies it to oneLine
+for individual use of Sally that will get the commit id in memory/ and then will add it has a commented
+libsvm information in the output file. 
+------------------recompose.sh
+From each file, will recompose inputs
+------------------sklearn_replicate.py
+Will produce results and figures in 4_Results/1_Data or 4_Results/2_Plots
+------------------const_recall.py
+Will return the precision for a fixed recall of 0.24
+
+######################################################################
+##			New Features without Co-Training
+######################################################################
+
+
+This experiment holds in the new_ft folder.
+
+
+Composed of 4 folders and 2 Launch scripts.
+1_Data: 			Holds the vectors extracted with new features
+2_Tools: 			Holds all the scripts to carry out the experiments
+				
+					
+3_IntermediarySteps: 		This, at the beginning empty, folder contains all the 
+				intermediary steps of the data 
+				
+4_Results: 			Split In data and Figures
+				Data will hold the results of prediction and actual
+				class so that figures can be later frwan without needing to
+				recompile everything .It will also contain the inputs
+				generated for the cotraining process.
+	
+launch.sh:			Launches instructions for replication with New
+				Features.
+
+fetch_input.sh:		Fetch results of the features extraction
+_________________________________________________________________________________________________
+Tools description:
+------------------list_commits.py-------------------------------------------------
+On the extracted vectors, will recompose the data so to be exploitable by sklearn.LinearSVC
+First, by passing the files from csv to libsvm format, and then recomposing those files into one
+file independently of the features considered.
+Then composing consistent data sets ready to be loaded and used.  
+------------------ python_sklearn.py---------------------------------------------
+produces the experiments with New Features
+Figure is generated in 4_Results/2_Plots 
+Data present in 4_Results/1_Data/1_Results
+------------------compose_mega_sets.sh-------------------------------------------
+Will combine test set and unlabeled test for the questions on the used data set
+------------------const_recall.py------------------------------------------------
+Will return the precision for recall of 0.24
+
+
+######################################################################
+##			Cotraining VCCFeatures
+######################################################################
+1. Will extract from data1.tar.xz to exp_new_features
+2. Rewrite data in reading friendly way
+3. Produce the results for 3 kinds of train data increase 1000, 5000, 10000
+4. Produce figure recall_precision.pdf
+
+######################################################################
+##			Cotraining New Features
+######################################################################
+

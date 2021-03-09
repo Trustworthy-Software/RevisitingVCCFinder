@@ -1,0 +1,6 @@
+pandas
+numpy
+scipy
+scikit-learn
+matplotlib
+psycopg2-binary

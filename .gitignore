@@ -1,0 +1,53 @@
+exp_new_features/
+data1/
+new_ft/1_Data/new_csvs/
+new_ft/3_IntermediarySteps/
+new_ft/4_Results/
+
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Flask stuff:
+instance/
+.webassets-cache
+
+# Sphinx documentation
+docs/_build/
+
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+
+# KDE Dolphin
+.directory
+
+# Apple
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# emacs
+*~
+
+# VI
+*.swp
+
+.kdev4/
+.idea/
+
+
+#  ERIC
+.eric6project/
+*.e4p
+
+.ropeproject/
+
+# Kdevelop
+*.kdev4
+
